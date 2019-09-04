@@ -1,14 +1,12 @@
-package com.sanshengshui.netty.client;
+package com.zhaohuaxishi.netty.client;
 
-import com.sanshengshui.netty.protobuf.UserMsg;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.protobuf.ProtobufDecoder;
-import io.netty.handler.codec.protobuf.ProtobufEncoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
-import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.CharsetUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,11 +23,12 @@ public class NettyClientInitializer extends ChannelInitializer<SocketChannel> {
         ph.addLast(new IdleStateHandler(0, 4, 0, TimeUnit.SECONDS));
 
         //传输的协议 Protobuf
-        ph.addLast(new ProtobufVarint32FrameDecoder());
+       /* ph.addLast(new ProtobufVarint32FrameDecoder());
         ph.addLast(new ProtobufDecoder(UserMsg.User.getDefaultInstance()));
         ph.addLast(new ProtobufVarint32LengthFieldPrepender());
-        ph.addLast(new ProtobufEncoder());
-
+        ph.addLast(new ProtobufEncoder());*/
+        ph.addLast(new StringDecoder(CharsetUtil.UTF_8));
+        ph.addLast(new StringEncoder(CharsetUtil.UTF_8));
         //业务逻辑实现类
         ph.addLast("nettyClientHandler",new NettyClientHandler());
 

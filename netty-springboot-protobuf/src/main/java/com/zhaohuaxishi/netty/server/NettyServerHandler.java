@@ -1,4 +1,4 @@
-package com.sanshengshui.netty.server;
+package com.zhaohuaxishi.netty.server;
 
 import com.sanshengshui.netty.protobuf.UserMsg;
 import io.netty.channel.ChannelHandlerContext;
@@ -24,8 +24,10 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("连接的客户端地址:" + ctx.channel().remoteAddress());
-        UserMsg.User user = UserMsg.User.newBuilder().setId(1).setAge(24).setName("穆书伟").setState(0).build();
-        ctx.writeAndFlush(user);
+        //UserMsg.User user = UserMsg.User.newBuilder().setId(1).setAge(24).setName("穆书伟").setState(0).build();
+        String msg="{\"seq\":\" 2322\",\"code\":\"qzj0001\",\"type\":\"前置机\",\"portId\":\"232239392 \",\"group\":\"C02101\",\"param\":{\"factory\":\"C021010001\",\"command\":\"set_param\",\"time\":\"2019-08-29 08:15:00\",\"pool\":\"0004\",\"code\":\"C021002006WGIB1AA03\",\"tempoId\":\"001\",\"pac\":\"28\"}}\n";
+        log.info("建立连接发送的数据"+msg);
+        ctx.writeAndFlush(msg);
         super.channelActive(ctx);
     }
 
@@ -69,7 +71,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
                 }
             } else {
                 log.info("未知数据!" + msg);
-                return;
             }
         } catch (Exception e) {
             e.printStackTrace();

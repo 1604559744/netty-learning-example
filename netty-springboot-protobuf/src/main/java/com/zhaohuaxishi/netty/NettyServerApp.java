@@ -1,4 +1,4 @@
-package com.sanshengshui.netty;
+package com.zhaohuaxishi.netty;
 
 
 import org.springframework.boot.SpringApplication;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-@ComponentScan({"com.sanshengshui.netty.server"})
+@ComponentScan({"com.zhaohuaxishi.netty.server"})
 public class NettyServerApp {
     /**
      * @param args
